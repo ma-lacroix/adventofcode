@@ -32,17 +32,16 @@ class Solver {
     }
 
     private Integer[] calculateAntiNodePosition(Integer[] antennaOne, Integer[] antennaTwo, boolean reverse, int jump) {
-        // Calculate the slope and the next node, can be used in both cases by tweaking the jump variable 
-        Integer[] diff = new Integer[2];
+        // Calculate the slope and the next node, can be used in both cases by tweaking the jump variable
         Integer[] newPosition = new Integer[2];
-        diff[0] = antennaTwo[0] - antennaOne[0];
-        diff[1] = antennaTwo[1] - antennaOne[1];
+        int dx = antennaTwo[0] - antennaOne[0];
+        int dy = antennaTwo[1] - antennaOne[1];
         if (reverse) {
-            newPosition[0] = antennaOne[0] - diff[0] * jump;
-            newPosition[1] = antennaOne[1] - diff[1] * jump;
+            newPosition[0] = antennaOne[0] - dx * jump;
+            newPosition[1] = antennaOne[1] - dy * jump;
         } else {
-            newPosition[0] = antennaTwo[0] + diff[0] * jump;
-            newPosition[1] = antennaTwo[1] + diff[1] * jump;
+            newPosition[0] = antennaTwo[0] + dx * jump;
+            newPosition[1] = antennaTwo[1] + dy * jump;
         }
         return newPosition;
     }
