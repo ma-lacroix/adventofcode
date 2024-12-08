@@ -31,7 +31,7 @@ class Solver {
         return antennaPositions;
     }
 
-    private Integer[] calculatePosition(Integer[] antennaOne, Integer[] antennaTwo, boolean reverse, int jump) {
+    private Integer[] calculateAntiNodePosition(Integer[] antennaOne, Integer[] antennaTwo, boolean reverse, int jump) {
         // Calculate the slope and the next node, can be used in both cases by tweaking the jump variable 
         Integer[] diff = new Integer[2];
         Integer[] newPosition = new Integer[2];
@@ -64,7 +64,7 @@ class Solver {
             for (int i = 0; i < positions.size() - 1; i++) {
                 for (int j = i + 1; j < positions.size(); j++) {
                     for (boolean flag : new boolean[]{true, false}) {
-                        Integer[] antiNode = calculatePosition(positions.get(i), positions.get(j), flag, 1);
+                        Integer[] antiNode = calculateAntiNodePosition(positions.get(i), positions.get(j), flag, 1);
                         if (isWithinLimits(antiNode)) {
                             inv.computeIfAbsent(antiNode[0], k -> new HashSet<>()).add(antiNode[1]);
                         }
@@ -84,8 +84,8 @@ class Solver {
                 for (int j = i + 1; j < positions.size(); j++) {
                     for (boolean flag : new boolean[]{true, false}) {
                         int jump = 0; // zero because two aligned towers are antinodes to each other!
-                        while(isWithinLimits(calculatePosition(positions.get(i), positions.get(j), flag, jump))) {
-                            Integer[] antiNode = calculatePosition(positions.get(i), positions.get(j), flag, jump);
+                        while(isWithinLimits(calculateAntiNodePosition(positions.get(i), positions.get(j), flag, jump))) {
+                            Integer[] antiNode = calculateAntiNodePosition(positions.get(i), positions.get(j), flag, jump);
                             inv.computeIfAbsent(antiNode[0], k -> new HashSet<>()).add(antiNode[1]);
                             jump++;
                         }
