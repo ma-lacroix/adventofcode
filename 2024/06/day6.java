@@ -146,7 +146,7 @@ class AocDaySix {
     public static void main(String[] args) {
         // part one
         try {
-            char[][] board = ReadInput.readFileToArray("/Users/mlacroix/Desktop/input.txt");
+            char[][] board = ReadInput.readFileToArray("input.txt");
             Solver solver = new Solver(board);
             solver.solvePartOne();
         } catch (IOException e) {
@@ -155,11 +155,11 @@ class AocDaySix {
 
         // part two
         try {
-            char[][] board = ReadInput.readFileToArray("/Users/mlacroix/Desktop/input.txt");
+            char[][] board = ReadInput.readFileToArray("input.txt");
             int ans = 0;
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board[i].length; j++) {
-                    char[][] altBoard = ReadInput.readFileToArray("/Users/mlacroix/Desktop/input.txt");
+                    char[][] altBoard = ReadInput.readFileToArray("input.txt");
                     if (altBoard[i][j] != '#' && altBoard[i][j] != '^') {
                         altBoard[i][j] = '#';
                         Solver solver = new Solver(altBoard);

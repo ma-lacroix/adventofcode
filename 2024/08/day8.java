@@ -113,7 +113,7 @@ class ReadInput {
         List<String> lines = new ArrayList<>();
         int maxLength = 0;
         try (BufferedReader reader = new BufferedReader(
-                new FileReader("/Users/mlacroix/Documents/git/adventofcode/2024/08/input.txt"))
+                new FileReader("input.txt"))
         ) {
             String line;
             while ((line = reader.readLine()) != null) {

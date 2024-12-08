@@ -77,7 +77,7 @@ class ReadInput {
     public static Map<Long, List<Integer>> readFileToMap() {
         List<String> lines = new ArrayList<>();
         int maxLength = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/mlacroix/Desktop/input.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("input.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 lines.add(line);
