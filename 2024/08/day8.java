@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.util.*;
 
 class Solver {
-    // create a map with characters are keys, and positions as list
-    // for each key, calculate each antinode location, store in map with x as key and y as set, sum all the lengths of each set
-    // return the total of antinodes
 
     char[][] board;
     int rows;
@@ -20,6 +17,7 @@ class Solver {
     }
 
     private Map<Character, List<Integer[]>> getAntennaPositions() {
+        // Create a Map of each antenna as a key, with the list of pairs defining their locations
         Map<Character, List<Integer[]>> antennaPositions = new HashMap<>();
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -34,6 +32,7 @@ class Solver {
     }
 
     private Integer[] calculatePosition(Integer[] antennaOne, Integer[] antennaTwo, boolean reverse, int jump) {
+        // Calculate the slope and the next node, can be used in both cases by tweaking the jump variable 
         Integer[] diff = new Integer[2];
         Integer[] newPosition = new Integer[2];
         diff[0] = antennaTwo[0] - antennaOne[0];
@@ -53,10 +52,12 @@ class Solver {
     }
 
     private int numberOfAntinodesForFrequency(Map<Integer, Set<Integer>> inv) {
+        // Returns the total number of antinodes from the map
         return inv.values().stream().mapToInt(Set::size).sum();
     }
 
     public void solvePartOne() {
+        // Holds a map of each unique antinode coordinates with X as the key and a Set for the Y frequencies
         Map<Integer, Set<Integer>> inv = new HashMap<>();
         for (char key: antennaPositions.keySet()) {
             List<Integer[]> positions = antennaPositions.get(key);
@@ -75,13 +76,14 @@ class Solver {
     }
 
     public void solvePartTwo() {
+        // Same as part one, but we iterate using the jump factor
         Map<Integer, Set<Integer>> inv = new HashMap<>();
         for (char key: antennaPositions.keySet()) {
             List<Integer[]> positions = antennaPositions.get(key);
             for (int i = 0; i < positions.size() - 1; i++) {
                 for (int j = i + 1; j < positions.size(); j++) {
                     for (boolean flag : new boolean[]{true, false}) {
-                        int jump = 0;
+                        int jump = 0; // zero because two aligned towers are antinodes to each other!
                         while(isWithinLimits(calculatePosition(positions.get(i), positions.get(j), flag, jump))) {
                             Integer[] antiNode = calculatePosition(positions.get(i), positions.get(j), flag, jump);
                             inv.computeIfAbsent(antiNode[0], k -> new HashSet<>()).add(antiNode[1]);
@@ -100,7 +102,7 @@ class AocDay8 {
     public static void main(String[] args) {
         char[][] board = ReadInput.readFileToArray();
         Solver solver = new Solver(board);
-//        solver.solvePartOne();
+        solver.solvePartOne();
         solver.solvePartTwo();
     }
 }
