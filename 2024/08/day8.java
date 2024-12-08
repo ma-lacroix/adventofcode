@@ -107,7 +107,7 @@ class AocDay8 {
 }
 
 class ReadInput {
-    // This part was 98% generated with Cody AI.
+    // This part was 98% generated with AI.
 
     public static char[][] readFileToArray() {
         List<String> lines = new ArrayList<>();
