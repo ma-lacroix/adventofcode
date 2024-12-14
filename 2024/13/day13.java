@@ -31,7 +31,7 @@ class Solver {
             long maxButtonA = Math.max((bonus + behaviors.get(i).prize[0])/behaviors.get(i).buttonA[0], (bonus + behaviors.get(i).prize[1])/behaviors.get(i).buttonA[1]);
             long maxButtonB = Math.max((bonus + behaviors.get(i).prize[0])/behaviors.get(i).buttonB[0], (bonus + behaviors.get(i).prize[1])/behaviors.get(i).buttonB[1]);
             for (long j = 0; j<= maxButtonA; j++) {
-                for (long k = 0; k<= maxButtonB; k++) {
+                for (long k = maxButtonB; 0 <= k; k--) {
                     if (isValidMove(j, k, behaviors.get(i), bonus)) {
                         validMoves.get(i).add(new long[]{j, k});
                     }
@@ -76,7 +76,7 @@ class AocDay13 {
         List<MachineBehavior> behaviors = ReadInput.readFileToArray();
         Solver solver = new Solver(behaviors);
         solver.partOne();
-        solver.partTwo();
+//        solver.partTwo();
     }
 }
 
