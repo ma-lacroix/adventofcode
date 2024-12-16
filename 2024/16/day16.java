@@ -8,9 +8,9 @@ enum Direction {
 }
 
 class State {
-    Pair position;      // The current position in the maze (x, y)
-    Direction direction; // The direction you moved to reach this state
-    int score;          // The total score accumulated to reach this state
+    Pair position;
+    Direction direction;
+    int score;
 
     public State(Pair position, Direction direction, int score) {
         this.position = position;
@@ -30,15 +30,15 @@ class Pair {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true; // Same object
+        if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false; // Null or different class
         Pair pair = (Pair) obj;
-        return x == pair.x && y == pair.y; // Compare x and y values
+        return x == pair.x && y == pair.y;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y); // Combine x and y for hash code
+        return Objects.hash(x, y);
     }
 
 }
