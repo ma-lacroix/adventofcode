@@ -1,5 +1,17 @@
 
 
+def solve_part_one(directions: list, moves: list):
+    current = 50
+    stops_at_zero = 0
+    for i in range(len(directions)):
+        if directions[i] == 'L':
+            current = (current - moves[i]) % 100
+        else:
+            current = (current + moves[i]) % 100
+        if current == 0:
+            stops_at_zero += 1
+    print(stops_at_zero)
+
 def solve_part_two(directions: list, moves: list):
     current = 50
     total_passes = 0
@@ -22,20 +34,6 @@ def solve_part_two(directions: list, moves: list):
                 current = current % 100
 
     print(total_passes)
-
-
-def solve_part_one(directions: list, moves: list):
-    current = 50
-    stops_at_zero = 0
-    for i in range(len(directions)):
-        if directions[i] == 'L':
-            current = (current - moves[i]) % 100
-        else:
-            current = (current + moves[i]) % 100
-        if current == 0:
-            stops_at_zero += 1
-    print(stops_at_zero)
-
 
 
 def main():
