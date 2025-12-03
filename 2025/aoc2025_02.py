@@ -9,7 +9,6 @@ def solve_part_one(data: list[list]):
             start_string = str(start)
             if start_string[0:int(len(start_string)/2)] == start_string[int(len(start_string)/2):]:
                 invalid_numbers.append(start)
-                break
             start += 1
     print(sum(invalid_numbers))
 
