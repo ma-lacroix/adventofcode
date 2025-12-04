@@ -1,3 +1,6 @@
+from functools import cache
+
+
 def solve_part_one(data: list[list]):
     total = 0
     for d in data:
@@ -16,25 +19,38 @@ def solve_part_one(data: list[list]):
         total += int(f"{ind_val[1]}{second_digit}")
     print(total)
 
-def solve(digits: list[int], local: list[int], start_index: int, current_best: int) -> int:
-    if len(local) == 12:
-        return int(''.join(map(str, local)))
-    if len(digits) - start_index < 12 - len(local):
-        return 0
-    for i in range(start_index, len(digits)):
-        new_local = local.copy()    # Meh. Don't like that but works.
-        new_local.append(digits[i])
-        if str(new_local[0]) < str(current_best)[0]:
-            continue
-        result_sum = solve(digits, new_local, i + 1, current_best)
-        current_best = max(result_sum, current_best)
-    return current_best
+"""    
+solve(digits, start_index, left_digits) - returns best result for digits[start_index:] with left_digits
+
+    = 0 if start_index >= len(digits) and left_digits != 0
+    = max(digits[start_index:])  if left_digits == 1
+    = max(
+        1. pick digits[start_index] and recurse with start_index+1, left_digits-1
+            digits[start_index] * (10 ** left_digits) + solve(digits, start_index+1, left_digits-1)
+            
+        2. don't pick digits[start_index] and recurse with start_index+1, left_digits
+            solve(digits, start_index+1, left_digits)
+    )
+"""
+
+@cache
+def solve(digits: tuple[int], start_index: int, left_digits: int) -> int:
+    if start_index >= len(digits):
+        return float('-inf')
+
+    if left_digits == 1:
+        return max(digits[start_index:])
+
+    return max(
+        digits[start_index] * int(10 ** (left_digits - 1)) + solve(digits, start_index+1, left_digits-1),
+        solve(digits, start_index+1, left_digits)
+    )
 
 def solve_part_two(data: list[list]):
     total = 0
     for d in data:
         digits = [int(e) for e in str(d)]
-        best = solve(digits, [], 0, 0)
+        best = solve(tuple(digits), 0, 12)
         print(best)
         total += best
     print(total)
