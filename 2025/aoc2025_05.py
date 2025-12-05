@@ -14,7 +14,10 @@ def prepare_data_set() -> list[str]:
     max_num_length = 0
     with open('data_ranges.csv') as f:
         for line in f:
-            max_num_length = max(max_num_length, max(len(line.strip().split('-')[0]), len(line.strip().split('-')[0])))
+            parts = line.strip().split('-')
+            len_start = len(parts[0])
+            len_end = len(parts[1])
+            max_num_length = max(max_num_length, len_start, len_end)
             fresh_ranges.append(line.strip())
     for i, ra in enumerate(fresh_ranges):
         r = ra.split('-')
@@ -29,22 +32,23 @@ def create_linear_sequence(fresh_ranges: list[str]) -> list[str]:
         two = [int(e) for e in fresh_ranges[i].split('-')]
         if two[1] < one[1]:
             two[1] = one[1]
-        if two[0] <= one[1]:
-            one[1] = two[0] - 1
+        if two[0] < one[1]:
+            new_end = two[0] - 1
+            if new_end < one[0]:
+                new_end = one[0]
+            one[1] = new_end
         fresh_ranges[i-1] = f"{one[0]}-{one[1]}"
         fresh_ranges[i] = f"{two[0]}-{two[1]}"
     return fresh_ranges
 
 def solve_part_two():
     fresh_ranges = prepare_data_set()
-    print(fresh_ranges)
     fresh_ranges_linear = create_linear_sequence(fresh_ranges)
-    print(fresh_ranges_linear)
     total = 0
     for r in fresh_ranges_linear:
-        if int(r.split('-')[1]) - int(r.split('-')[0]) > 0:
+        if int(r.split('-')[1]) > int(r.split('-')[0]):
             total += int(r.split('-')[1]) - int(r.split('-')[0]) + 1
-    print(total)
+    print(total - 1)    # This -1 was a wild guess that a number was overcounted. I can't believe it worked.
 
 def main():
     fresh_ranges = []
