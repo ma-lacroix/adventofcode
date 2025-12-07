@@ -21,7 +21,7 @@ def solve_part_one():
                 active_beams.discard(j)
                 active_beams.add(j - 1)
                 active_beams.add(j + 1)
-    print(f"P2: {total_splits}")
+    print(f"P1: {total_splits}")
 
 def prepare_data_p2() -> list[list[str]]:
     puzzle_data = []
