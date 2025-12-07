@@ -21,7 +21,7 @@ def solve_part_one():
                 active_beams.discard(j)
                 active_beams.add(j - 1)
                 active_beams.add(j + 1)
-    print(total_splits)
+    print(f"P2: {total_splits}")
 
 def prepare_data_p2() -> list[list[str]]:
     puzzle_data = []
@@ -84,11 +84,11 @@ def solve_part_two():
 
     # recursion
     total = solve(paths, starting_node)
-    print(total)
+    print(f"P2: {total}")
 
 
 def main():
-    # solve_part_one()
+    solve_part_one()
     solve_part_two()
 
 if __name__ == "__main__":
